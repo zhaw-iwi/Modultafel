@@ -27,5 +27,8 @@
     "url": "https://github.com/mmeisterhans/Modultafel/issues"
   },
   "homepage": "https://github.com/mmeisterhans/Modultafel#readme",
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "16.x"
+  }
 }
