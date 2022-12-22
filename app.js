@@ -8,9 +8,11 @@ const fs = require('fs')
 const {add} = require("nodemon/lib/rules");
 app.set('view engine', 'ejs')
 
+const TEMP_DIR = 'public/tmp/';
+
 app.use(express.static('public'), fileUpload({
     useTempFiles: true,
-    tempFileDir: '/tmp/'
+    tempFileDir: TEMP_DIR
 }));
 
 app.post('/upload', function (req, res) {
@@ -21,7 +23,10 @@ app.post('/upload', function (req, res) {
         return res.status(400).send('No files were uploaded.');
     }
     excelFile = req.files.excelFile;
-    uploadPath = __dirname + '/tmp/' + Date.now() + "_" + excelFile.name;
+    //uploadPath = __dirname + '/tmp/' + Date.now() + "_" + excelFile.name;
+    uploadPath = TEMP_DIR + Date.now() + "_" + excelFile.name;
+
+
 
     // move the file to temp path
     excelFile.mv(uploadPath, async function (err) {
@@ -85,7 +90,8 @@ app.post('/upload', function (req, res) {
             })
         })
 
-        const returnFile = __dirname + '/tmp/' + Date.now() + "_" + 'Modultafel.html'
+        //const returnFile = __dirname + '/tmp/' + Date.now() + "_" + 'Modultafel.html'
+        const returnFile = TEMP_DIR + Date.now() + "_" + 'Modultafel.html'
         res.render('main', {
                 usedModulegroups: usedModulegroups,
                 semesterArray: semesterArray,

@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kappeand/Modultafel.git"
+    "url": "git+https://github.com/mmeisterhans/Modultafel.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kappeand/Modultafel/issues"
+    "url": "https://github.com/mmeisterhans/Modultafel/issues"
   },
-  "homepage": "https://github.com/kappeand/Modultafel#readme",
+  "homepage": "https://github.com/mmeisterhans/Modultafel#readme",
   "description": ""
 }
