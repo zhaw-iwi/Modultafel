@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080;
 const xlsx = require('xlsx');
 
 const fs = require('fs')
-const {add} = require("nodemon/lib/rules");
+//const {add} = require("nodemon/lib/rules");
 app.set('view engine', 'ejs')
 
 const TEMP_DIR = 'public/tmp/';
@@ -56,7 +56,7 @@ app.post('/upload', function (req, res) {
         });
 
         let usedModulegroups = [];
-        let counter
+        //let counter
         modules.forEach(module => {
             if (usedModulegroups.find(modul => modul.name == module.Modulgruppe) == undefined) {
                 let FarbeModulkaestchen = settings.find(settings => settings.Modulgruppe == module.Modulgruppe).FarbeModulkaestchen;
