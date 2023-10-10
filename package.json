@@ -29,6 +29,6 @@
   "homepage": "https://github.com/mmeisterhans/Modultafel#readme",
   "description": "",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   }
 }
