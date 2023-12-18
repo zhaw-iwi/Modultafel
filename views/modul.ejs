@@ -1,6 +1,6 @@
 <script>
-  <% let modalId = `modal-${name.replace(/[*&\s.]+/g, "-")}`; %>
-  <% let modalId2 = `modal-${name.replace(/[*&\s.]+/g, "-")}-2`; %>
+  <% let modalId = `modal-${name.replace(/[*&\s.,+]+/g, "-")}`; %>
+  <% let modalId2 = `modal-${name.replace(/[*&\s.,+]+/g, "-")}-2`; %>
 </script>
 
 <div class="card flex-fill" id="ModulCard" style="--moduleBG: <%= color %>;">
@@ -109,7 +109,6 @@
           </h3>
         </div>
         <div>
-          <p>/<span class="tab"></span>ECTS-Credits: <%= modul.badge %></p>
           <p>/<span class="tab"></span><%= modul.shortname %></p>
           <p>/<span class="tab"></span><a href="<%= modul.url %>" method="get" target="_blank">Details zu diesem Modul</a></p>
           <% if (modul.description && modul.description.trim() !== "") { %>
