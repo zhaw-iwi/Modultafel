@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+
+  <title>Svelte app</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <style>
+    <%- include('style', {
+        all: all
+      }
+
+    ) %>
+  </style>
+  <style>
+    #modulContainer {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+    }
+
+    #headerRow {
+      margin-bottom: 5px;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-left: 0px !important;
+    }
+
+    #zhawSmlLogoBanner {
+      display: flex;
+      justify-content: center;
+      border-radius: 8px;
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    #zhawSmlLogoBannerContent {
+      height: 75px;
+    }
+
+    .footerRow {
+      width: 100%;
+      padding-left: 5px !important;
+    }
+
+    .footerRow2 {
+      width: 100%;
+      padding-left: 5px !important;
+      padding-bottom: 20px !important;
+    }
+
+    #legendeTitle {
+      padding-left: 2.5px !important;
+      font-weight: bold;
+    }
+
+    #legendeModulgruppen {
+      width: 100%;
+      margin-left: 0px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #legendeCard {
+      min-height: 70px;
+      max-width: 200px;
+      padding-right: 5px;
+    }
+
+    #legendeCardBody {
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #legendeCol {
+      padding-left: 2.5px !important;
+    }
+
+    #legendeCardText {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ---- Media Queries Legende ---- */
+
+    @media (max-width: 768px) {
+      #legendeCard {
+        margin-bottom: 5px;
+      }
+
+      #legendeCol {
+        padding-left: 0px !important;
+      }
+
+      #legendeTitle {
+        padding-left: 0px;
+      }
+    }
+
+    /* ------- TEST (change font-size by different screen size ) ------- */
+
+    @media (max-width: 768px) {
+      #headerRow {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      #headerColumn,
+      .InfoText,
+      .InfoTextRot {
+        text-align: center;
+      }
+    }
+
+    @media (min-width: 0px) {
+      .mainTitle {
+        color: #000000;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .secondTitle {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .InfoText,
+      .InfoTextRot {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .mainTitle {
+        color: #000000;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .secondTitle {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .InfoText,
+      .InfoTextRot {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+    }
+
+    @media (min-width: 1600px) {
+      .mainTitle {
+        color: #000000;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .secondTitle {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+
+      .InfoText,
+      .InfoTextRot {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+    }
+
+    /* Media Queries ZHAW Logo */
+
+    @media (max-width: 767px) {
+      #zhawSmlLogo {
+        display: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      #zhawSmlLogoBanner {
+        display: none;
+      }
+    }
+
+    @media (min-width: 0px) {
+      #zhawSmlLogo {
+        max-height: 50px;
+      }
+    }
+
+    @media (min-width: 780px) {
+      #zhawSmlLogo {
+        max-height: 55px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      #zhawSmlLogo {
+        max-height: 63px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header and Navigation -->
+  <div class="navbar" style="background-color: #0064a6;" id="zhawSmlLogoBanner">
+    <img id="zhawSmlLogoBannerContent" src="https://career.sml.zhaw.ch/media/1333/zhaw_sml_byline_white.png" alt="Logo SML" />
+  </div>
+
+  <div class="row" id="headerRow">
+    <div class="col-auto" id="headerColumn">
+      <h1 class="mainTitle">
+        <%= information.title %>
+      </h1>
+      <h4 class="mb-3 secondTitle">
+        <%= information.subtitle %>
+      </h4>
+    </div>
+    <img class="col-auto" id="zhawSmlLogo" src="https://career.sml.zhaw.ch/media/1355/logonewnav.jpg" alt="Logo SML" />
+  </div>
+
+  <!-- Info Text Section -->
+  <div class="row" id="headerRow">
+    <div class="col-auto" id="headerColumn">
+      <div class="row p-0" id="headerColumn">
+        <h4 class="InfoText">
+          Klicken Sie auf die farbigen Kästchen um die Modulbeschreibungen anzusehen.
+        </h4>
+        <h4 class="InfoTextRot mb-4">
+          <%= information.warningFoot %>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modultafel (Module Table) -->
+  <div class="custom-container">
+    <% all.forEach(semester=> { %>
+    <div class="row">
+      <div class="col-12 col-lg-1">
+        <!-- Render Semester Component Here -->
+        <%- include('Semester', { semesterNumber: semester.number, totalCredits: semester.totalCredits }) %>
+      </div>
+
+      <div class="col-lg-11">
+        <div class="container-lg" id="modulContainer">
+          <div class="row">
+            <% semester.semesterModules.forEach(group=> { %>
+            <% group.modules.forEach(module=> { %>
+            <div class="col-xl-2 col-sm-4 col-md-3 col-6">
+              <!-- Render Modul Component Here -->
+              <%- include('Modul', { color: group.color, font: group.font, name: module.name, shortname:
+                                        module.shortname, is_elective: module.is_elective, badge: module.credits,
+                                        description: module.description, url: module.url, wahlmodule: module.wahlmodule
+                                        }) %>
+            </div>
+            <% }); %>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+
+  <!-- Legend -->
+  <div id="legendeModulgruppen">
+    <h6 id="legendeTitle">Legende:</h6>
+    <div class="col-xxl-6 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-12 p-0">
+      <div class="row">
+        <% groupsArray.forEach(group=> { %>
+        <div class="col-xl-2 col-lg-3 col-sm-3 col-md-3 col-4" id="legendeCol">
+          <div class="card" id="legendeCard" style="background-color: <%= group.color %>;">
+            <div class="card-body" id="legendeCardBody">
+              <p class="card-text" id="legendeCardText" style="color: <%= group.font %>;">
+                <%= group.group %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="row mt-3 footerRow">
+    <%= information.infoFoot %>
+  </div>
+  <div class="row footerRow2">
+    Drucktipps: Stellen Sie in der Druckansicht sicher, dass die Option "Querformat" aktiviert ist und die Seitenränder
+    in den Seiteneigenschaften auf 0 gesetzt sind.
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,47 +1,9 @@
-<!-- **************** Semester **************** -->
-<div class="row">
-    <div class="col-1" style="width: 7rem">
-        <h4 class="text-white" style="background-color: #002c57">
-            <%= modulesOfSemester[0].Semester.split('.')[0] %>
-        </h4>
-        <p style=" margin-bottom: 0">
-            <% numberOfECTS = 0; %>
-            <% modulesOfSemester.forEach(module => {
-                if (!isNaN(module.ECTS)) {
-                    numberOfECTS += module.ECTS;
-                }
-            }); %>
-            <%= numberOfECTS %> ECTS
-        </p>
-    </div>
-    <div class="col">
-        <% var addedModulgruppen = [] %>
-        <% var modulgruppenOfSemester = [] %>
-        <% usedModulegroups.forEach(modulegroup => {
-            let moduleGroupExists = false;
-            modulesOfSemester.forEach(module => {
-                if (module.Modulgruppe == modulegroup.name) moduleGroupExists = true;
-            })
-            if (!moduleGroupExists) {
-                modulesOfSemester.push({
-                    Semester: modulesOfSemester[0].Semester,
-                    Modulgruppe: modulegroup.name,
-                    FarbeModulkaestchen: modulegroup.FarbeModulkaestchen,
-                    Hintergrundfarbe: modulegroup.Hintergrundfarbe,
-                    Schriftfarbe: modulegroup.Schriftfarbe,
-                    Reihenfolge: modulegroup.Reihenfolge
-                });
-            }
-        })
-        usedModulegroups.sort((a, b) => a.Reihenfolge - b.Reihenfolge);
-        usedModulegroups.forEach(moduleGroup => {
-            modulgruppenOfSemester.push(modulesOfSemester.filter(module => module.Modulgruppe === moduleGroup.name));
-        }) %>
-
-        <div class="row">
-            <% modulgruppenOfSemester.forEach(modulesOfModulgruppe => { %>
-                <%- include('modulgruppe', {modulesOfModulgruppe: modulesOfModulgruppe, wahlmodule: wahlmodule}) %>
-            <% }) %>
-        </div>
-    </div>
+<div class="card" id="SemesterCard">
+  <div class="card-body" id="SemesterCardBody">
+    <p class="SemesterName">Semester <%= semesterNumber %>
+    </p>
+    <p class="SemesterName" id="semesterBadgeTotal">
+      <%= totalCredits %> ECTS-Credits
+    </p>
+  </div>
 </div>

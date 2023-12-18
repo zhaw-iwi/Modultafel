@@ -1,26 +1,126 @@
-<!-- **************** Modul **************** -->
-<div class="col my-2">
-    <div class="card"
-         style="background-color: <%= module.hasOwnProperty('Modulbezeichnung') ? module.FarbeModulkaestchen + '; cursor: pointer;' : colorModuleGroup %>"
-    <% if(module.hasOwnProperty('Link')) { %>
-         onclick="window.open('<%= module.Link %>')"
-            <% } %>
-    <% if(module.hasOwnProperty('Wahlpflichtmodul')) { %>
-        <% var modalId = module.Modulbezeichnung.toString().replace(' ', '_') %>
-                <% var isWahlpflichtmodul = true %>
-         data-bs-toggle="modal" data-bs-target="#modal<%= modalId %>"
-            <% } %>
-    >
-        <% if(isWahlpflichtmodul) { %>
-            <%- include('modal', {modalId: modalId, module: module, wahlmodule: wahlmodule}) %>
-        <% } %>
-        <div class="card-body">
-            <h6 class="card-title" lang="de"
-                style="color:<%= module.Schriftfarbe %>;"><%= module.Modulbezeichnung %></h6>
-        </div>
-        <% if (module.hasOwnProperty('ECTS')){ %>
-            <p class="card-text bg-black text-white" id="ects"><%= module.ECTS %> ECTS
-            </p>
-        <% } %>
+<script>
+  <% let modalId = `modal-${name.replace(/[*&\s.]+/g, "-")}`; %>
+  <% let modalId2 = `modal-${name.replace(/[*&\s.]+/g, "-")}-2`; %>
+</script>
+
+<div class="card flex-fill" id="ModulCard" style="--moduleBG: <%= color %>;">
+  <div class="card-body" id="ModulCardBody" style="color: <%= font %>;">
+    <% if (!is_elective) { %>
+    <a id="Modulname" data-bs-toggle="modal" data-bs-target="#<%= modalId %>" style="color: <%= font %>;">
+      <%= name %>
+    </a>
+    <p class="modulCardECTS" style="color: <%= font %>;"><%= badge %> ECTS-Credits</p>
+    <% } else { %>
+    <div class="row">
+      <a id="Modulname" data-bs-toggle="modal" data-bs-target="#<%= modalId2 %>" style="color: <%= font %>;">
+        <%= name %>
+      </a>
+      <p class="modulCardECTS" style="color: <%= font %>;"><%= badge %> ECTS-Credits</p>
     </div>
+    <% } %>
+  </div>
 </div>
+
+<!-- Modal for Non-Elective -->
+<div class="modal fade" id="<%= modalId %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="border: 10px solid <%= color %>;">
+      <div style="text-align: right;">
+        <button type="button" class="btn custom-close m-1" aria-label="Close" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle-fill" style="font-size: 2rem; color: <%= color %>;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="title">
+          <h3 class="modal-title col-auto" id="exampleModalLongTitle">
+            <%= name %>
+          </h3>
+        </div>
+        <div>
+          <p>/<span class="tab"></span>ECTS-Credits: <%= badge %></p>
+          <p>/<span class="tab"></span><%= shortname %></p>
+          <p>/<span class="tab"></span><a href="<%= url %>" method="get" target="_blank">Details zu diesem Modul</a></p>
+        </div>
+        <% if (description && description.trim() !== "") { %>
+        <%= description %>
+        <% } else { %>
+        <h5>Keine Modulbeschreibung vorhanden.</h5>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Elective -->
+<% if (is_elective) { %>
+<div class="modal fade" id="<%= modalId2 %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="border: 10px solid <%= color %>;">
+      <div style="text-align: right;">
+        <button type="button" class="btn m-1" aria-label="Close" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle-fill" style="font-size: 2rem; color: <%= color %>;"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="title">
+          <h3 class="modal-title col-auto" id="exampleModalLongTitle">
+            <%= name %>
+          </h3>
+        </div>
+        <div>
+          <p>/<span class="tab"></span>ECTS-Credits: <%= badge %></p>
+        </div>
+        <p>/<span class="tab"></span>Verfügbare Module:</p>
+        <ul>
+          <% wahlmodule.forEach(modul => { %>
+          <li>
+            <a id="wahlpflichtmodulLink" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#<%= modul.shortname.replace(/\./g, '-') %>">
+              <%= modul.name %>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Nested Modals for Each Elective Module -->
+<% wahlmodule.forEach(modul => { %>
+<div class="modal fade" id="<%= modul.shortname.replace(/\./g, '-') %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="border: 10px solid <%= color %>;">
+      <div class="row">
+        <div class="col" style="text-align: left;">
+          <button type="button" class="btn m-1" data-bs-target="#<%= modalId2 %>" data-bs-toggle="modal" data-bs-dismiss="modal" style="color: <%= color %>;">
+            <i class="bi bi-arrow-left-circle-fill" style="font-size: 2rem; color: <%= color %>;"></i>
+          </button>
+        </div>
+        <div class="col" style="text-align: right;">
+          <button type="button" class="btn m-1" aria-label="Close" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle-fill" style="font-size: 2rem; color: <%= color %>;"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="title">
+          <h3 class="modal-title col-auto" id="exampleModalLongTitle">
+            <%= modul.name %>
+          </h3>
+        </div>
+        <div>
+          <p>/<span class="tab"></span>ECTS-Credits: <%= modul.badge %></p>
+          <p>/<span class="tab"></span><%= modul.shortname %></p>
+          <p>/<span class="tab"></span><a href="<%= modul.url %>" method="get" target="_blank">Details zu diesem Modul</a></p>
+          <% if (modul.description && modul.description.trim() !== "") { %>
+          <%= modul.description %>
+          <% } else { %>
+          <h5>Keine Modulbeschreibung vorhanden.</h5>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% }); %>
+<% } %>
