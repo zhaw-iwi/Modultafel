@@ -287,7 +287,7 @@
     <div class="row">
       <div class="col-12 col-lg-1">
         <!-- Render Semester Component Here -->
-        <%- include('Semester', { semesterNumber: semester.number, totalCredits: semester.totalCredits }) %>
+        <%- include('semester', { semesterNumber: semester.number, totalCredits: semester.totalCredits }) %>
       </div>
 
       <div class="col-lg-11">
@@ -297,7 +297,7 @@
             <% group.modules.forEach(module=> { %>
             <div class="col-xl-2 col-sm-4 col-md-3 col-6">
               <!-- Render Modul Component Here -->
-              <%- include('Modul', { color: group.color, font: group.font, name: module.name, shortname:
+              <%- include('modul', { color: group.color, font: group.font, name: module.name, shortname:
                                         module.shortname, is_elective: module.is_elective, badge: module.credits,
                                         description: module.description, url: module.url, wahlmodule: module.wahlmodule
                                         }) %>
